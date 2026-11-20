@@ -17,6 +17,14 @@ enum Gender {
   P
 }
 
+enum WartaKategori {
+  BERITA
+  KEGIATAN
+  DUKA
+  ALEK
+  PENGUMUMAN
+}
+
 model User {
   id              String   @id @default(uuid())
   nik             String   @unique @db.VarChar(16)
@@ -40,6 +48,8 @@ model User {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
+  wartaCreated    Warta[]
+
   @@map("users")
 }
 
@@ -59,4 +69,20 @@ model ManagementMatrix {
   updatedAt     DateTime @updatedAt
 
   @@map("management_matrix")
+}
+
+model Warta {
+  id          Int           @id @default(autoincrement())
+  judul       String
+  kategori    WartaKategori @default(PENGUMUMAN)
+  ringkasan   String?
+  konten      String        @db.Text
+  penulisId   String?
+  penulis     User?         @relation(fields: [penulisId], references: [id])
+  penulisNama String        @default("Pengurus PWS")
+  isPinned    Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@map("warta")
 }

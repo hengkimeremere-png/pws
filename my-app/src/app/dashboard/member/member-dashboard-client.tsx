@@ -21,6 +21,9 @@ import { GenealogyTreeSimple } from "@/components/genealogy-tree-simple";
 import { OrganizationalChart } from "@/components/organizational-chart";
 import { GonjongIcon, MarawaStrip } from "@/components/minang-icons";
 import SilsilahWarga from "@/components/silsilah-warga";
+import { KtaDigital } from "@/components/kta-digital";
+import { PersebaranMap } from "@/components/persebaran-map";
+import { WartaNagari } from "@/components/warta-nagari";
 import {
   User,
   LogOut,
@@ -38,6 +41,9 @@ import {
   ExternalLink,
   Loader2,
   CheckCircle2,
+  CreditCard,
+  Globe2,
+  Bell,
 } from "lucide-react";
 
 interface MemberProps {
@@ -282,33 +288,54 @@ export default function MemberDashboardClient({ user: initialUser }: MemberProps
 
         {/* Navigation Tabs */}
         <Tabs defaultValue="profile" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4 max-w-2xl mx-auto sm:mx-0 bg-zinc-900 border border-zinc-800 p-1">
+          <TabsList className="grid w-full grid-cols-4 sm:grid-cols-7 max-w-4xl mx-auto sm:mx-0 bg-zinc-900 border border-zinc-800 p-1">
             <TabsTrigger
               value="profile"
-              className="gap-1.5 data-[state=active]:bg-amber-500 data-[state=active]:text-zinc-950 font-semibold text-xs sm:text-sm"
+              className="gap-1.5 data-[state=active]:bg-amber-500 data-[state=active]:text-zinc-950 font-semibold text-xs"
             >
-              <User className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              <User className="h-3.5 w-3.5" />
               <span>Profil</span>
             </TabsTrigger>
             <TabsTrigger
-              value="genealogy"
-              className="gap-1.5 data-[state=active]:bg-amber-500 data-[state=active]:text-zinc-950 font-semibold text-xs sm:text-sm"
+              value="kta"
+              className="gap-1.5 data-[state=active]:bg-amber-500 data-[state=active]:text-zinc-950 font-semibold text-xs"
             >
-              <GitFork className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              <CreditCard className="h-3.5 w-3.5" />
+              <span>KTA</span>
+            </TabsTrigger>
+            <TabsTrigger
+              value="genealogy"
+              className="gap-1.5 data-[state=active]:bg-amber-500 data-[state=active]:text-zinc-950 font-semibold text-xs"
+            >
+              <GitFork className="h-3.5 w-3.5" />
               <span>Tarombo</span>
             </TabsTrigger>
             <TabsTrigger
               value="silsilah-warga"
-              className="gap-1.5 data-[state=active]:bg-amber-500 data-[state=active]:text-zinc-950 font-semibold text-xs sm:text-sm"
+              className="gap-1.5 data-[state=active]:bg-amber-500 data-[state=active]:text-zinc-950 font-semibold text-xs"
             >
-              <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              <Sparkles className="h-3.5 w-3.5" />
               <span>Silsilah</span>
             </TabsTrigger>
             <TabsTrigger
-              value="organization"
-              className="gap-1.5 data-[state=active]:bg-amber-500 data-[state=active]:text-zinc-950 font-semibold text-xs sm:text-sm"
+              value="persebaran"
+              className="gap-1.5 data-[state=active]:bg-amber-500 data-[state=active]:text-zinc-950 font-semibold text-xs"
             >
-              <Users className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              <Globe2 className="h-3.5 w-3.5" />
+              <span>Persebaran</span>
+            </TabsTrigger>
+            <TabsTrigger
+              value="warta"
+              className="gap-1.5 data-[state=active]:bg-amber-500 data-[state=active]:text-zinc-950 font-semibold text-xs"
+            >
+              <Bell className="h-3.5 w-3.5" />
+              <span>Warta</span>
+            </TabsTrigger>
+            <TabsTrigger
+              value="organization"
+              className="gap-1.5 data-[state=active]:bg-amber-500 data-[state=active]:text-zinc-950 font-semibold text-xs"
+            >
+              <Users className="h-3.5 w-3.5" />
               <span>Pengurus</span>
             </TabsTrigger>
           </TabsList>
@@ -589,7 +616,14 @@ export default function MemberDashboardClient({ user: initialUser }: MemberProps
             </div>
           </TabsContent>
 
-          {/* TAB 2: Genealogy */}
+          {/* TAB 2: KTA Digital */}
+          <TabsContent value="kta">
+            <Card className="border border-zinc-800 bg-zinc-900/60 shadow-xl backdrop-blur-md p-6">
+              <KtaDigital user={user} />
+            </Card>
+          </TabsContent>
+
+          {/* TAB 3: Genealogy */}
           <TabsContent value="genealogy">
             <Card className="border border-zinc-800 bg-zinc-900/60 shadow-xl backdrop-blur-md">
               <CardHeader className="text-center">
@@ -615,12 +649,26 @@ export default function MemberDashboardClient({ user: initialUser }: MemberProps
             </Card>
           </TabsContent>
 
-          {/* TAB 3: Silsilah Semua Warga */}
+          {/* TAB 4: Silsilah Semua Warga */}
           <TabsContent value="silsilah-warga">
             <SilsilahWarga />
           </TabsContent>
 
-          {/* TAB 4: Organizational Chart */}
+          {/* TAB 5: Peta Persebaran */}
+          <TabsContent value="persebaran">
+            <Card className="border border-zinc-800 bg-zinc-900/60 shadow-xl backdrop-blur-md p-6">
+              <PersebaranMap />
+            </Card>
+          </TabsContent>
+
+          {/* TAB 6: Warta Nagari */}
+          <TabsContent value="warta">
+            <Card className="border border-zinc-800 bg-zinc-900/60 shadow-xl backdrop-blur-md p-6">
+              <WartaNagari />
+            </Card>
+          </TabsContent>
+
+          {/* TAB 7: Organizational Chart */}
           <TabsContent value="organization">
             <Card className="border border-zinc-800 bg-zinc-900/60 shadow-xl backdrop-blur-md">
               <CardHeader className="text-center">
