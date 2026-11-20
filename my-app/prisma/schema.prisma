@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+enum Gender {
+  L
+  P
+}
+
+model User {
+  id              String   @id @default(uuid())
+  nik             String   @unique @db.VarChar(16)
+  nama            String
+  tempatLahir     String?
+  tglLahir        DateTime?
+  jk              Gender
+  suku            String
+  ibuKandung      String
+  ayahDatuak      String
+  jorong          String
+  pekerjaan       String?
+  noHp            String
+  alamatDomisili  String   @db.Text
+  latitude        Float?
+  longitude       Float?
+  mapUrl          String?
+  email           String   @unique
+  password        String
+  role            Role     @default(MEMBER)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("users")
+}
+
+model ManagementMatrix {
+  id            Int      @id @default(autoincrement())
+  jabatan       String
+  level         Int
+  nama          String
+  suku          String
+  jorong        String
+  ibuKandung    String
+  ayahDatuak    String
+  noHp          String
+  periode       String
+  urutan        Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("management_matrix")
+}
